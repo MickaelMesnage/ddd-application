@@ -2,6 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
 ## Commands
 
 `npm start`
@@ -26,10 +27,11 @@ Launches the test runner in the interactive watch mode.
 Checks if there are lint errors
 
 `npm run lint:fix`
-Tries to fix lint errors
+Tries to fix lint errors. This command will format the code according to prettier too
 
 `npm run format`
 Formats the code according to prettier
+
 
 ## Architecture
 
