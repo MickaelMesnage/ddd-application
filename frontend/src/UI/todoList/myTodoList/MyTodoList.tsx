@@ -5,11 +5,6 @@ import { useAppDispatch, useAppSelector } from "adapter/redux/hooks";
 import Todo from "../Todo";
 import "./myTodoList.css";
 
-// const divStyle = {
-//     display: "flex",
-//     "flex-direction": "column"
-// };
-
 const MyTodoList: FC = () => {
     const todoList = useAppSelector(getMyTodoListSelector);
     const dispatch = useAppDispatch();

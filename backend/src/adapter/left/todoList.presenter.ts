@@ -1,10 +1,10 @@
-import TodoList from "../../domain/todo/todoList";
-import ItemSubject from "../../domain/todo/type/itemSubject";
+import TodoList from "../../domain/todo/class/todoList";
+import { TodoId, TodoSubject } from "../../domain/todo/type";
 
 export type TodoListPresented = Array<{
-    subject: ItemSubject;
+    subject: TodoSubject;
     isChecked: boolean;
-    id: string;
+    id: TodoId;
 }>;
 
 export class TodoListPresenter {
