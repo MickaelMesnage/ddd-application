@@ -1,15 +1,18 @@
 import { FC } from "react";
 import { useAppDispatch } from "adapter/redux/hooks";
 import TodoProps from "domain/todo";
+import { updateTodoAction } from "adapter/myTodoList/myTodoListAction";
 
-// Je peux utiliser les types du model ?
-const Todo: FC<TodoProps> = ({ subject, isChecked, id }) => {
-    // il vaut mieux que je passe les props en paramètre ou il faut que j'utilise un selector ?
+const Todo: FC<TodoProps> = (props) => {
+    const { subject, isChecked } = props;
     const dispatch = useAppDispatch();
+    const onChange = async () => {
+        await updateTodoAction(dispatch, { ...props, isChecked: !isChecked });
+    };
 
     return (
         <label>
-            <input type="checkbox" checked={isChecked} />
+            <input type="checkbox" checked={isChecked} onChange={onChange} />
             {subject}
         </label>
     );

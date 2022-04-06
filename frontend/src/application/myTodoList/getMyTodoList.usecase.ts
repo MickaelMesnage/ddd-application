@@ -1,8 +1,8 @@
 import TodoList from "domain/todoList";
-import getTodoList from "infrastructure/api/todo/getTodoList";
+import getMyTodoList from "infrastructure/api/todo/getMyTodoList";
 
 const getMyTodoListUseCase = async (): Promise<TodoList> => {
-    const myTodoList = await getTodoList();
+    const myTodoList = await getMyTodoList();
 
     return myTodoList;
 };

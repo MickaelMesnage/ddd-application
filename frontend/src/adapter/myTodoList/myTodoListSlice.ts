@@ -15,6 +15,7 @@ export const myTodoListSlice = createSlice({
     initialState,
     reducers: {
         setMyTodoList: (state: MyTodoListState, action: PayloadAction<TodoList>) => {
+            console.log("eee", action.payload);
             state.value = action.payload;
         }
     }
