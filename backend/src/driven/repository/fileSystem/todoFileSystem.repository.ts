@@ -1,8 +1,9 @@
 import * as fs from "fs";
 import * as path from "path";
 import Todo from "../../../domain/todo/class/todo";
-import { TodoId, TodoStatus, TodoSubject } from "../../../domain/todo/type";
+import { TodoId, TodoSubject } from "../../../domain/todo/type";
 import ITodoRepository from "../ITodo.repository";
+import TodoAdapter from "./todo.adapter";
 
 const PATH = path.join(__dirname, "./store.txt");
 
@@ -29,14 +30,14 @@ class TodoFileSystemRespository implements ITodoRepository {
     };
 
     // TODO handle user
-    getTodosByUser(): Promise<Array<Todo>> {
+    public getTodosByUser(): Promise<Array<Todo>> {
         const items = this.getPersistedItems();
         const todos = items.map((item: Item) => new Todo(item));
 
         return Promise.resolve(todos);
     }
 
-    getTodoById(id: TodoId): Promise<Todo> {
+    public getTodoById(id: TodoId): Promise<Todo> {
         const item = this.getPersistedItems().find((item) => item.id === id);
         if (!item) throw new Error("todo.repository getTodoById: item not found");
         const todo = new Todo(item);
@@ -44,28 +45,29 @@ class TodoFileSystemRespository implements ITodoRepository {
         return Promise.resolve(todo);
     }
 
-    updateTodo(todo: Todo): Promise<void> {
+    public updateTodo(todo: Todo): Promise<void> {
         const items = this.getPersistedItems();
         const id = items.findIndex((item) => item.id === todo.id);
         if (id < 0) throw new Error("todo.repository setTodo: item not found");
-        items[id] = {
-            subject: todo.subject,
-            isChecked: todo.status === TodoStatus.CHECKED,
-            id: todo.id
-        };
-        console.log("aaa", items);
+        items[id] = TodoAdapter.adapt(todo);
         this.persistItems(items);
 
         return Promise.resolve();
     }
 
-    createTodo(todo: Todo): Promise<void> {
+    public createTodo(todo: Todo): Promise<void> {
         const items = this.getPersistedItems();
-        items.push({
-            subject: todo.subject,
-            isChecked: todo.status === TodoStatus.CHECKED,
-            id: todo.id
-        });
+        items.push(TodoAdapter.adapt(todo));
+        this.persistItems(items);
+
+        return Promise.resolve();
+    }
+
+    public deleteTodo(todoId: TodoId): Promise<void> {
+        const items = this.getPersistedItems();
+        const id = items.findIndex((item) => item.id === todoId);
+        if (id < 0) throw new Error("todo.repository deleteTodo: item not found");
+        items.splice(id, 1);
         this.persistItems(items);
 
         return Promise.resolve();

@@ -1,4 +1,4 @@
-import Todo from "../../domain/todo/class/todo";
+import Todo from "../../../domain/todo/class/todo";
 
 export type TodoPresented = {
     subject: string;

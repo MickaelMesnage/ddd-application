@@ -2,10 +2,10 @@ import { FC, useEffect } from "react";
 import { getMyTodoListAction } from "adapter/myTodoList/myTodoListAction";
 import { getMyTodoListSelector } from "adapter/myTodoList/myTodoListSelector";
 import { useAppDispatch, useAppSelector } from "adapter/redux/hooks";
-import Todo from "../Todo";
-import "./myTodoList.css";
+import Todo from "../todo";
+import "./index.css";
 
-const MyTodoList: FC = () => {
+const TodoList: FC = () => {
     const todoList = useAppSelector(getMyTodoListSelector);
     const dispatch = useAppDispatch();
 
@@ -14,15 +14,12 @@ const MyTodoList: FC = () => {
     }, []);
 
     return (
-        <div>
-            <h1>Todolist</h1>
-            <div className="container">
-                {todoList.map((todo) => (
-                    <Todo {...todo} key={todo.id} />
-                ))}
-            </div>
+        <div className="container">
+            {todoList.map((todo) => (
+                <Todo {...todo} key={todo.id} />
+            ))}
         </div>
     );
 };
 
-export default MyTodoList;
+export default TodoList;
