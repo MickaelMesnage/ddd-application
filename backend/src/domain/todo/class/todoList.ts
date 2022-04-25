@@ -1,6 +1,6 @@
-import Todo from "./todo";
+import Todo, { TodoProps } from "./todo";
 
-type TodoListProps = Array<Todo>;
+type TodoListProps = Array<TodoProps>;
 
 class TodoList {
     private _list: Array<Todo>;

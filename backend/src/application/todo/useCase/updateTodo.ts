@@ -1,7 +1,6 @@
 import Todo from "../../../domain/todo/class/todo";
-import ITodoRepository from "../../../right/repository/ITodo.repository";
-import TodoPort from "../todo.port";
-import IUpdateTodoUseCase from "./IUpdateTodo.usecase";
+import ITodoRepository from "../../../driven/repository/ITodo.repository";
+import IUpdateTodoUseCase, { UpdateTodoPort } from "./IUpdateTodo.usecase";
 
 export type UpdateTodoUseCaseDependencies = {
     todoRepository: ITodoRepository;
@@ -10,11 +9,9 @@ export type UpdateTodoUseCaseDependencies = {
 export default class UpdateTodoUseCase implements IUpdateTodoUseCase {
     constructor(private dependencies: UpdateTodoUseCaseDependencies) {}
 
-    async execute(todoPort: TodoPort): Promise<void> {
+    async execute(todoPort: UpdateTodoPort): Promise<void> {
         const { todoRepository } = this.dependencies;
-        console.log("update todo with port", todoPort);
         const todo = new Todo(todoPort);
-        console.log("update todo with", todo);
         await todoRepository.updateTodo(todo);
     }
 }

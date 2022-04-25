@@ -6,6 +6,7 @@ interface ITodoRepository {
     getTodoById(id: TodoId): Promise<Todo>;
     createTodo(todo: Todo): Promise<void>;
     updateTodo(todo: Todo): Promise<void>;
+    deleteTodo(todoId: TodoId): Promise<void>;
 }
 
 export default ITodoRepository;

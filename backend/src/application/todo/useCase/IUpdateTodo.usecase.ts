@@ -1,7 +1,9 @@
-import TodoPort from "./todo.port";
+import TodoPort from "../todo.port";
+
+export type UpdateTodoPort = TodoPort;
 
 interface IUpdateTodoUseCase {
-    execute(todoPort: TodoPort): Promise<void>;
+    execute(todoPort: UpdateTodoPort): Promise<void>;
 }
 
 export default IUpdateTodoUseCase;

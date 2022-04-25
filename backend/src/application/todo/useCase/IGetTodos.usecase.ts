@@ -1,7 +1,7 @@
-import { TodoPresented } from "../todo.presenter";
+import Todo from "../../../domain/todo/class/todo";
 
 interface IGetTodosUseCase {
-    execute(): Promise<Array<TodoPresented>>;
+    execute(): Promise<Array<Todo>>;
 }
 
 export default IGetTodosUseCase;

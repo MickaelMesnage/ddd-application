@@ -1,5 +1,5 @@
 import Todo from "../../../domain/todo/class/todo";
-import ITodoRepository from "../../../right/repository/ITodo.repository";
+import ITodoRepository from "../../../driven/repository/ITodo.repository";
 import ICreateTodoUseCase from "./ICreateTodo.usecase";
 
 export type CreateTodoUseCaseDependencies = {

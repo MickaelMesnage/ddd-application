@@ -1,8 +1,8 @@
 import express, { Express } from "express";
 import cors from "cors";
-import todoRouter from "./todo.router";
+import todoRouter from "./todo/todo.router";
 import bodyParser from "body-parser";
-import todoListRouter from "./todoList.router";
+import todoListRouter from "./todo/todoList.router";
 import CDrive, { CDriveDependencies } from "../CDrive";
 
 class ExpressServer extends CDrive {
