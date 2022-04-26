@@ -1,9 +1,10 @@
 import * as fs from "fs";
 import * as path from "path";
-import Todo from "../../../domain/todo/class/todo";
-import { TodoId, TodoSubject } from "../../../domain/todo/type";
+import Todo from "../../../../domain/todo/class/todo";
+import TodoList from "../../../../domain/todo/class/todoList";
+import { TodoId, TodoSubject } from "../../../../domain/todo/type";
 import ITodoRepository from "../ITodo.repository";
-import TodoAdapter from "./todo.adapter";
+import TodoAdapter from "../todo.adapter";
 
 const PATH = path.join(__dirname, "./store.txt");
 
@@ -30,11 +31,11 @@ class TodoFileSystemRespository implements ITodoRepository {
     };
 
     // TODO handle user
-    public getTodosByUser(): Promise<Array<Todo>> {
+    public getTodosByUser(): Promise<TodoList> {
         const items = this.getPersistedItems();
-        const todos = items.map((item: Item) => new Todo(item));
+        const todoList = new TodoList(items);
 
-        return Promise.resolve(todos);
+        return Promise.resolve(todoList);
     }
 
     public getTodoById(id: TodoId): Promise<Todo> {
