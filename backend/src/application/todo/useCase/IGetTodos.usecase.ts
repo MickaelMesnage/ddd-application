@@ -1,7 +1,7 @@
-import Todo from "../../../domain/todo/class/todo";
+import TodoList from "../../../domain/todo/class/todoList";
 
 interface IGetTodosUseCase {
-    execute(): Promise<Array<Todo>>;
+    execute(): Promise<TodoList>;
 }
 
 export default IGetTodosUseCase;

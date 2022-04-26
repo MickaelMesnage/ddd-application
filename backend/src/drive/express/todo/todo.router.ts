@@ -12,9 +12,9 @@ const todoRouter = (todoUseCase: ITodoUseCase): Router => {
         // or if it is admin
         const subject = req.body.subject as TodoSubject;
         await todoUseCase.createTodo.execute(subject);
-        const todos = await todoUseCase.getTodos.execute();
+        const todoList = await todoUseCase.getTodos.execute();
 
-        res.json({ todoList: TodoListPresenter.present(todos) });
+        res.json({ todoList: TodoListPresenter.present(todoList) });
     });
 
     router.put("/", async (req: Request, res: Response) => {
@@ -22,9 +22,9 @@ const todoRouter = (todoUseCase: ITodoUseCase): Router => {
         // or if it is admin
         const newTodo = req.body.todo as TodoPort;
         await todoUseCase.updateTodo.execute(newTodo);
-        const todos = await todoUseCase.getTodos.execute();
+        const todoList = await todoUseCase.getTodos.execute();
 
-        res.json({ todoList: TodoListPresenter.present(todos) });
+        res.json({ todoList: TodoListPresenter.present(todoList) });
     });
 
     router.delete("/", async (req: Request, res: Response) => {
@@ -33,9 +33,9 @@ const todoRouter = (todoUseCase: ITodoUseCase): Router => {
         // in use case i think
         const todoId = req.body.id as TodoId;
         await todoUseCase.deleteTodo.execute(todoId);
-        const todos = await todoUseCase.getTodos.execute();
+        const todoList = await todoUseCase.getTodos.execute();
 
-        res.json({ todoList: TodoListPresenter.present(todos) });
+        res.json({ todoList: TodoListPresenter.present(todoList) });
     });
 
     return router;

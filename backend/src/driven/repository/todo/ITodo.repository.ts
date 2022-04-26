@@ -1,8 +1,9 @@
-import { TodoId } from "../../domain/todo/type";
-import Todo from "../../domain/todo/class/todo";
+import { TodoId } from "../../../domain/todo/type";
+import Todo from "../../../domain/todo/class/todo";
+import TodoList from "../../../domain/todo/class/todoList";
 
 interface ITodoRepository {
-    getTodosByUser(): Promise<Array<Todo>>;
+    getTodosByUser(): Promise<TodoList>;
     getTodoById(id: TodoId): Promise<Todo>;
     createTodo(todo: Todo): Promise<void>;
     updateTodo(todo: Todo): Promise<void>;

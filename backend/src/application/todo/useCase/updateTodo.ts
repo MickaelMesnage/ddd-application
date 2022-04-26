@@ -1,5 +1,5 @@
 import Todo from "../../../domain/todo/class/todo";
-import ITodoRepository from "../../../driven/repository/ITodo.repository";
+import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
 import IUpdateTodoUseCase, { UpdateTodoPort } from "./IUpdateTodo.usecase";
 
 export type UpdateTodoUseCaseDependencies = {

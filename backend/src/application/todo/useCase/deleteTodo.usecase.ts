@@ -1,5 +1,5 @@
 import { TodoId } from "../../../domain/todo/type";
-import ITodoRepository from "../../../driven/repository/ITodo.repository";
+import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
 import IDeleteTodoUseCase from "./IDeleteTodo.usecase";
 
 export type DeleteTodoUseCaseDependencies = {
