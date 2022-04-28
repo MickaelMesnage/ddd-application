@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import ITodoUseCase from "../../../application/todo/useCase/ITodo.usecase";
+import { ITodoUseCase } from "../../../application/todo/useCase/Todo.usecase";
 import TodoListPresenter from "./todoList.presenter";
 
 const todoListRouter = (todoUseCase: ITodoUseCase): Router => {

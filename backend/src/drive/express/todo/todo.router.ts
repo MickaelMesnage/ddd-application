@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express";
-import ITodoUseCase from "../../../application/todo/useCase/ITodo.usecase";
-import TodoPort from "../../../application/todo/todo.port";
-import { TodoId, TodoSubject } from "../../../domain/todo/type";
+import { ITodoUseCase } from "../../../application/todo/useCase/Todo.usecase";
+import { TodoId, TodoProps, TodoSubject } from "../../../domain/todo/type";
 import TodoListPresenter from "./todoList.presenter";
 
 const todoRouter = (todoUseCase: ITodoUseCase): Router => {
@@ -20,7 +19,7 @@ const todoRouter = (todoUseCase: ITodoUseCase): Router => {
     router.put("/", async (req: Request, res: Response) => {
         // check if it is the todo of the user
         // or if it is admin
-        const newTodo = req.body.todo as TodoPort;
+        const newTodo = req.body.todo as TodoProps;
         await todoUseCase.updateTodo.execute(newTodo);
         const todoList = await todoUseCase.getTodos.execute();
 

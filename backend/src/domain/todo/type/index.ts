@@ -6,3 +6,9 @@ export enum TodoStatus {
 }
 
 export type TodoSubject = string;
+
+export type TodoProps = {
+    subject: TodoSubject;
+    isChecked?: boolean;
+    id?: TodoId;
+};

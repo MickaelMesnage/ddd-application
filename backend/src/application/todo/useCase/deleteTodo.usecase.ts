@@ -1,6 +1,9 @@
 import { TodoId } from "../../../domain/todo/type";
 import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
-import IDeleteTodoUseCase from "./IDeleteTodo.usecase";
+
+export interface IDeleteTodoUseCase {
+    execute(todoId: TodoId): Promise<void>;
+}
 
 export type DeleteTodoUseCaseDependencies = {
     todoRepository: ITodoRepository;

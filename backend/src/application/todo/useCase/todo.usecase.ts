@@ -1,8 +1,15 @@
 import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
-import CreateTodoUseCase from "./createTodo.usecase";
-import DeleteTodoUseCase from "./deleteTodo.useCase";
-import GetTodosUseCase from "./getTodos.usecase";
-import UpdateTodoUseCase from "./updateTodo";
+import CreateTodoUseCase, { ICreateTodoUseCase } from "./createTodo.usecase";
+import DeleteTodoUseCase, { IDeleteTodoUseCase } from "./deleteTodo.useCase";
+import GetTodosUseCase, { IGetTodosUseCase } from "./getTodos.usecase";
+import UpdateTodoUseCase, { IUpdateTodoUseCase } from "./updateTodo";
+
+export interface ITodoUseCase {
+    getTodos: IGetTodosUseCase;
+    updateTodo: IUpdateTodoUseCase;
+    createTodo: ICreateTodoUseCase;
+    deleteTodo: IDeleteTodoUseCase;
+}
 
 const todoUseCase = (todoRepository: ITodoRepository) => ({
     getTodos: new GetTodosUseCase({ todoRepository }),
