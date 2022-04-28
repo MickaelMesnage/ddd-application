@@ -1,11 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { TodoId, TodoStatus, TodoSubject } from "../type";
-
-export type TodoProps = {
-    subject: TodoSubject;
-    isChecked?: boolean;
-    id?: TodoId;
-};
+import { TodoId, TodoProps, TodoStatus, TodoSubject } from "../type";
 
 class Todo {
     private _subject: TodoSubject;

@@ -1,6 +1,9 @@
 import TodoList from "../../../domain/todo/class/todoList";
 import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
-import IGetTodosUseCase from "./IGetTodos.usecase";
+
+export interface IGetTodosUseCase {
+    execute(): Promise<TodoList>;
+}
 
 export type GetTodosUseCaseDependencies = {
     todoRepository: ITodoRepository;

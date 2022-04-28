@@ -1,4 +1,5 @@
-import Todo, { TodoProps } from "./todo";
+import { TodoProps } from "../type";
+import Todo from "./todo";
 
 type TodoListProps = Array<TodoProps>;
 
@@ -17,7 +18,7 @@ class TodoList {
         return this._list;
     }
 
-    get lenght(): number {
+    get length(): number {
         return this._list.length;
     }
 }

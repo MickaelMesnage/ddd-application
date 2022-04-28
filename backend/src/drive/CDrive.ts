@@ -1,4 +1,4 @@
-import ITodoUseCase from "../application/todo/useCase/ITodo.usecase";
+import { ITodoUseCase } from "../application/todo/useCase/Todo.usecase";
 
 export type CDriveDependencies = {
     todoUseCase: ITodoUseCase;
