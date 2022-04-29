@@ -1,8 +1,12 @@
 import { TodoId } from "../../../domain/todo/type";
-import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
+import ITodoRepository from "../secondary/ITodo.repository";
+
+export type DeleteTodoUseCasePort = {
+    id: TodoId;
+};
 
 export interface IDeleteTodoUseCase {
-    execute(todoId: TodoId): Promise<void>;
+    execute(port: DeleteTodoUseCasePort): Promise<void>;
 }
 
 export type DeleteTodoUseCaseDependencies = {
@@ -12,10 +16,11 @@ export type DeleteTodoUseCaseDependencies = {
 export default class DeleteTodoUseCase implements IDeleteTodoUseCase {
     constructor(private dependencies: DeleteTodoUseCaseDependencies) {}
 
-    async execute(todoId: TodoId): Promise<void> {
+    async execute(port: DeleteTodoUseCasePort): Promise<void> {
         const { todoRepository } = this.dependencies;
+        const { id } = port;
 
         // Check todo exist and user can delete this todo
-        await todoRepository.deleteTodo(todoId);
+        await todoRepository.deleteTodo({ id });
     }
 }

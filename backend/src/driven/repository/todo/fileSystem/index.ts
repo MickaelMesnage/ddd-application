@@ -2,33 +2,37 @@ import * as fs from "fs";
 import * as path from "path";
 import Todo from "../../../../domain/todo/class/todo";
 import TodoList from "../../../../domain/todo/class/todoList";
-import { TodoId, TodoSubject } from "../../../../domain/todo/type";
-import ITodoRepository from "../ITodo.repository";
-import TodoAdapter from "../todo.adapter";
+import { TodoId, TodoIsChecked, TodoSubject } from "../../../../domain/todo/type";
+import ITodoRepository, {
+    CreateOrUpdateTodoPort,
+    DeleteTodoPort,
+    GetTodoByIdPort
+} from "../../../../application/todo/secondary/ITodo.repository";
+import { TodoByIdNotFoundError } from "../../../../error/TodoByIdNotFoundError";
 
 const PATH = path.join(__dirname, "./store.txt");
 
 type Item = {
     subject: TodoSubject;
-    isChecked: boolean;
+    isChecked: TodoIsChecked;
     id: TodoId;
 };
 
 class TodoFileSystemRespository implements ITodoRepository {
-    private getPersistedItems = (): Array<Item> => {
+    private getPersistedItems(): Array<Item> {
         const content = fs.readFileSync(PATH).toString();
 
         // TODO check the content is ok
         return content ? JSON.parse(content) : [];
-    };
+    }
 
-    private persistItems = async (items: Array<Item>): Promise<void> => {
+    private async persistItems(items: Array<Item>): Promise<void> {
         try {
             fs.writeFileSync(PATH, JSON.stringify(items));
         } catch (error) {
             throw new Error(`todo.repository persistItems: error when write file ${error}`);
         }
-    };
+    }
 
     // TODO handle user
     public getTodosByUser(): Promise<TodoList> {
@@ -38,37 +42,44 @@ class TodoFileSystemRespository implements ITodoRepository {
         return Promise.resolve(todoList);
     }
 
-    public getTodoById(id: TodoId): Promise<Todo> {
+    public getTodoById(port: GetTodoByIdPort): Promise<Todo> {
+        const { id } = port;
         const item = this.getPersistedItems().find((item) => item.id === id);
-        if (!item) throw new Error("todo.repository getTodoById: item not found");
+        if (!item) throw new TodoByIdNotFoundError();
         const todo = new Todo(item);
 
         return Promise.resolve(todo);
     }
 
-    public updateTodo(todo: Todo): Promise<void> {
+    public updateTodo(port: CreateOrUpdateTodoPort): Promise<void> {
+        const { id, subject, isChecked } = port;
         const items = this.getPersistedItems();
-        const id = items.findIndex((item) => item.id === todo.id);
-        if (id < 0) throw new Error("todo.repository setTodo: item not found");
-        items[id] = TodoAdapter.adapt(todo);
+        const itemId = items.findIndex((item) => item.id === id);
+        if (itemId < 0) throw new TodoByIdNotFoundError();
+        items[itemId] = {
+            ...items[itemId],
+            subject,
+            isChecked
+        };
         this.persistItems(items);
 
         return Promise.resolve();
     }
 
-    public createTodo(todo: Todo): Promise<void> {
+    public createTodo(port: CreateOrUpdateTodoPort): Promise<void> {
         const items = this.getPersistedItems();
-        items.push(TodoAdapter.adapt(todo));
+        items.push(port);
         this.persistItems(items);
 
         return Promise.resolve();
     }
 
-    public deleteTodo(todoId: TodoId): Promise<void> {
+    public deleteTodo(port: DeleteTodoPort): Promise<void> {
+        const { id } = port;
         const items = this.getPersistedItems();
-        const id = items.findIndex((item) => item.id === todoId);
-        if (id < 0) throw new Error("todo.repository deleteTodo: item not found");
-        items.splice(id, 1);
+        const itemId = items.findIndex((item) => item.id === id);
+        if (itemId < 0) throw new TodoByIdNotFoundError();
+        items.splice(itemId, 1);
         this.persistItems(items);
 
         return Promise.resolve();

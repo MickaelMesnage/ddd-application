@@ -1,6 +1,8 @@
 import { Request, Response, Router } from "express";
+import { DeleteTodoUseCasePort } from "../../../application/todo/useCase/deleteTodo.useCase";
 import { ITodoUseCase } from "../../../application/todo/useCase/Todo.usecase";
-import { TodoId, TodoProps, TodoSubject } from "../../../domain/todo/type";
+import { UpdateTodoUseCasePort } from "../../../application/todo/useCase/updateTodo";
+import { TodoId, TodoSubject } from "../../../domain/todo/type";
 import TodoListPresenter from "./todoList.presenter";
 
 const todoRouter = (todoUseCase: ITodoUseCase): Router => {
@@ -10,7 +12,7 @@ const todoRouter = (todoUseCase: ITodoUseCase): Router => {
         // check if it is the todo of the user
         // or if it is admin
         const subject = req.body.subject as TodoSubject;
-        await todoUseCase.createTodo.execute(subject);
+        await todoUseCase.createTodo.execute({ subject });
         const todoList = await todoUseCase.getTodos.execute();
 
         res.json({ todoList: TodoListPresenter.present(todoList) });
@@ -19,8 +21,8 @@ const todoRouter = (todoUseCase: ITodoUseCase): Router => {
     router.put("/", async (req: Request, res: Response) => {
         // check if it is the todo of the user
         // or if it is admin
-        const newTodo = req.body.todo as TodoProps;
-        await todoUseCase.updateTodo.execute(newTodo);
+        const updateTodoUseCasePort = req.body.todo as UpdateTodoUseCasePort;
+        await todoUseCase.updateTodo.execute(updateTodoUseCasePort);
         const todoList = await todoUseCase.getTodos.execute();
 
         res.json({ todoList: TodoListPresenter.present(todoList) });
@@ -30,8 +32,8 @@ const todoRouter = (todoUseCase: ITodoUseCase): Router => {
         // check if it is the todo of the user
         // or if it is admin
         // in use case i think
-        const todoId = req.body.id as TodoId;
-        await todoUseCase.deleteTodo.execute(todoId);
+        const id = req.body.id as TodoId;
+        await todoUseCase.deleteTodo.execute({ id });
         const todoList = await todoUseCase.getTodos.execute();
 
         res.json({ todoList: TodoListPresenter.present(todoList) });

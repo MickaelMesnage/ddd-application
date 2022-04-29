@@ -1,9 +1,14 @@
-import Todo from "../../../domain/todo/class/todo";
-import { TodoProps } from "../../../domain/todo/type";
-import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
+import { TodoId, TodoIsChecked, TodoSubject } from "../../../domain/todo/type";
+import ITodoRepository from "../secondary/ITodo.repository";
+
+export type UpdateTodoUseCasePort = {
+    id: TodoId;
+    subject: TodoSubject;
+    isChecked: TodoIsChecked;
+};
 
 export interface IUpdateTodoUseCase {
-    execute(todoProps: TodoProps): Promise<void>;
+    execute(port: UpdateTodoUseCasePort): Promise<void>;
 }
 
 export type UpdateTodoUseCaseDependencies = {
@@ -13,9 +18,16 @@ export type UpdateTodoUseCaseDependencies = {
 export default class UpdateTodoUseCase implements IUpdateTodoUseCase {
     constructor(private dependencies: UpdateTodoUseCaseDependencies) {}
 
-    async execute(todoProps: TodoProps): Promise<void> {
+    async execute(port: UpdateTodoUseCasePort): Promise<void> {
         const { todoRepository } = this.dependencies;
-        const todo = new Todo(todoProps);
-        await todoRepository.updateTodo(todo);
+        const { id, subject, isChecked } = port;
+        const todoToUpdate = await todoRepository.getTodoById({ id });
+        todoToUpdate.update({ subject, isChecked });
+
+        await todoRepository.updateTodo({
+            id: todoToUpdate.id,
+            subject: todoToUpdate.subject,
+            isChecked: todoToUpdate.isChecked
+        });
     }
 }
