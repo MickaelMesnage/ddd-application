@@ -7,8 +7,10 @@ export enum TodoStatus {
 
 export type TodoSubject = string;
 
+export type TodoIsChecked = boolean;
+
 export type TodoProps = {
     subject: TodoSubject;
-    isChecked?: boolean;
+    isChecked?: TodoIsChecked;
     id?: TodoId;
 };

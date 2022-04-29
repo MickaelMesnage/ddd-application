@@ -1,9 +1,13 @@
 import Todo from "../../../domain/todo/class/todo";
-import { TodoSubject } from "../../../domain/todo/type";
-import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
+import { TodoId, TodoStatus, TodoSubject } from "../../../domain/todo/type";
+import ITodoRepository from "../secondary/ITodo.repository";
+
+export type CreateTodoUseCasePort = {
+    subject: TodoSubject;
+};
 
 export interface ICreateTodoUseCase {
-    execute(todoSubject: string): Promise<void>;
+    execute(port: CreateTodoUseCasePort): Promise<void>;
 }
 
 export type CreateTodoUseCaseDependencies = {
@@ -13,9 +17,13 @@ export type CreateTodoUseCaseDependencies = {
 export default class CreateTodoUseCase implements ICreateTodoUseCase {
     constructor(private dependencies: CreateTodoUseCaseDependencies) {}
 
-    async execute(todoSubject: TodoSubject): Promise<void> {
+    async execute(port: CreateTodoUseCasePort): Promise<void> {
         const { todoRepository } = this.dependencies;
-        const newTodo = new Todo({ subject: todoSubject });
-        await todoRepository.createTodo(newTodo);
+        const newTodo = new Todo({ subject: port.subject });
+        await todoRepository.createTodo({
+            id: newTodo.id,
+            subject: newTodo.subject,
+            isChecked: newTodo.isChecked
+        });
     }
 }

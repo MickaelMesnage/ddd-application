@@ -1,14 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
-import { TodoId, TodoProps, TodoStatus, TodoSubject } from "../type";
+import { TodoId, TodoIsChecked, TodoProps, TodoSubject } from "../type";
 
 class Todo {
     private _subject: TodoSubject;
-    private _status: TodoStatus;
+    private _isChecked: TodoIsChecked;
     private readonly _id: TodoId;
 
     constructor(todo: TodoProps) {
         this._subject = todo.subject;
-        this._status = (todo.isChecked && TodoStatus.CHECKED) || TodoStatus.NOT_CHECKED;
+        this._isChecked = Boolean(todo.isChecked);
         this._id = todo.id || uuidv4();
     }
 
@@ -16,21 +16,21 @@ class Todo {
         return this._subject;
     }
 
-    get status(): TodoStatus {
-        return this._status;
+    get isChecked(): TodoIsChecked {
+        return this._isChecked;
     }
 
     get id(): TodoId {
         return this._id;
     }
 
-    public isChecked(): boolean {
-        return this._status === TodoStatus.CHECKED;
+    public toggleStatus(): void {
+        this._isChecked = !this._isChecked;
     }
 
-    public toggleStatus(): void {
-        this._status =
-            this._status === TodoStatus.NOT_CHECKED ? TodoStatus.CHECKED : TodoStatus.NOT_CHECKED;
+    public update(props: { subject: TodoSubject; isChecked: TodoIsChecked }) {
+        this._subject = props.subject;
+        this._isChecked = props.isChecked;
     }
 }
 

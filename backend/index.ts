@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
-import TodoFileSystemRespository from "./src/driven/repository/todo/fileSystem/todoFileSystem.repository";
+import TodoFileSystemRespository from "./src/driven/repository/todo/fileSystem";
 import ExpressServer from "./src/drive/express/expressServer";
 import { CDriveDependencies } from "./src/drive/CDrive";
 import todoUseCase from "./src/application/todo/useCase/Todo.usecase";
-import InMemoryTodoRepository from "./src/driven/repository/todo/inMemory/todo.repository";
+import InMemoryTodoRepository from "./src/driven/repository/todo/inMemory";
 
 dotenv.config();
 

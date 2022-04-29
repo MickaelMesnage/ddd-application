@@ -1,4 +1,4 @@
-import ITodoRepository from "../../../driven/repository/todo/ITodo.repository";
+import ITodoRepository from "../secondary/ITodo.repository";
 import CreateTodoUseCase, { ICreateTodoUseCase } from "./createTodo.usecase";
 import DeleteTodoUseCase, { IDeleteTodoUseCase } from "./deleteTodo.useCase";
 import GetTodosUseCase, { IGetTodosUseCase } from "./getTodos.usecase";

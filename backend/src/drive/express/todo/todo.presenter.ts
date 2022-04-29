@@ -10,7 +10,7 @@ class TodoPresenter {
     static present(todo: Todo): TodoPresented {
         return {
             subject: todo.subject,
-            isChecked: todo.isChecked(),
+            isChecked: todo.isChecked,
             id: todo.id
         };
     }
