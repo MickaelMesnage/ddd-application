@@ -1,13 +1,13 @@
 import { FC } from "react";
 import TodoList from "../todoList";
 import TodoInput from "../todoInput";
+import "./index.css";
 
 const TodoCard: FC = () => (
-    <>
-        <h2>Ma liste de todo</h2>
+    <div className="todo-container">
         <TodoList />
         <TodoInput />
-    </>
+    </div>
 );
 
 export default TodoCard;

@@ -4,6 +4,8 @@ import ExpressServer from "./src/drive/express/expressServer";
 import { CDriveDependencies } from "./src/drive/CDrive";
 import todoUseCase from "./src/application/todo/useCase/Todo.usecase";
 import InMemoryTodoRepository from "./src/driven/repository/todo/inMemory";
+import InMemoryUserRepository from "./src/driven/user/repository/inMemory";
+import userUseCase from "./src/application/user/useCase";
 
 dotenv.config();
 
@@ -14,8 +16,11 @@ const todoRepository =
         ? new TodoFileSystemRespository()
         : new InMemoryTodoRepository();
 
+const userRepository = new InMemoryUserRepository();
+
 const expressServerDependencies: CDriveDependencies = {
-    todoUseCase: todoUseCase(todoRepository)
+    todoUseCase: todoUseCase(todoRepository),
+    userUseCase: userUseCase(userRepository)
 };
 
 const expressServer = new ExpressServer(expressServerDependencies);

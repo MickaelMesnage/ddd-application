@@ -1,12 +1,11 @@
 import React, { FC } from "react";
 import { Provider } from "react-redux";
 import store from "adapter/redux/store";
-import TodoCard from "./UI/todo/todoCard";
+import Router from "./router";
 
 const App: FC = () => (
     <Provider store={store}>
-        <h1>Application en clean archi</h1>
-        <TodoCard />
+        <Router />
     </Provider>
 );
 
