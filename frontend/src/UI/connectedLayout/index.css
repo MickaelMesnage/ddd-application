@@ -1,0 +1,8 @@
+.connected-layout-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.connected-layout-children {
+    padding: 1rem;
+}

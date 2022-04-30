@@ -14,7 +14,7 @@ const TodoList: FC = () => {
     }, []);
 
     return (
-        <div className="container">
+        <div className="todo-list-container">
             {todoList.map((todo) => (
                 <Todo {...todo} key={todo.id} />
             ))}
