@@ -20,12 +20,17 @@ class ExpressServer extends CDrive {
         app.use(
             session({
                 secret: "my-secret-for-session",
-                resave: true,
-                saveUninitialized: true
+                resave: false,
+                saveUninitialized: true,
+                cookie: {
+                    httpOnly: false,
+                    secure: false,
+                    sameSite: true
+                }
             })
         );
 
-        app.use(cors({ origin: "*" }));
+        app.use(cors({ origin: "http://localhost:8080", credentials: true }));
         app.use(bodyParser.json());
         app.use("/todoList", todoListRouter(this._dependencies.todoUseCase));
         app.use("/todo", todoRouter(this._dependencies.todoUseCase));

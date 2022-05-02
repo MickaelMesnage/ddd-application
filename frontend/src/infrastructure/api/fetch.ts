@@ -23,6 +23,7 @@ const factory =
         const requestOptions = {
             method: method,
             headers: myHeaders,
+            credentials: "include" as RequestCredentials,
             body: JSON.stringify(data)
         };
 
@@ -38,6 +39,7 @@ const factory =
 
             throw new HttpError(status, body);
         }
+        console.log("eee", response.headers);
 
         return response.json();
     };

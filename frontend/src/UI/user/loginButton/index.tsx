@@ -4,7 +4,7 @@ import { loginAction } from "adapter/connectedUser/connectedUserAction";
 
 const LoginButton: FC = () => {
     const dispatch = useAppDispatch();
-    const [email, setEmail] = useState<string>("");
+    const [email, setEmail] = useState<string>("admin@gmail.com");
 
     const onInputChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {
