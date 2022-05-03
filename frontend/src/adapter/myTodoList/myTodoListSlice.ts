@@ -15,7 +15,6 @@ export const myTodoListSlice = createSlice({
     initialState,
     reducers: {
         setMyTodoList: (state: MyTodoListState, action: PayloadAction<TodoList>) => {
-            console.log("eee", action.payload);
             state.value = action.payload;
         }
     }
@@ -24,4 +23,6 @@ export const myTodoListSlice = createSlice({
 // Action creators are generated for each case reducer function
 export const { setMyTodoList } = myTodoListSlice.actions;
 
-export default myTodoListSlice.reducer;
+const myTodoListReducer = myTodoListSlice.reducer;
+
+export default myTodoListReducer;

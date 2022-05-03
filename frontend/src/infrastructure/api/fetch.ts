@@ -39,7 +39,6 @@ const factory =
 
             throw new HttpError(status, body);
         }
-        console.log("eee", response.headers);
 
         return response.json();
     };

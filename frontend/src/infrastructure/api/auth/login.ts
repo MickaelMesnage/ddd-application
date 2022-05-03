@@ -11,7 +11,7 @@ type LoginOutput = {
 
 const login = async (email: UserEmail): Promise<User> => {
     const { user } = await POST<LoginInput, LoginOutput>(
-        `${process.env.REACT_APP_API_URL}user/login`,
+        `${process.env.REACT_APP_API_URL}auth/login`,
         { email }
     );
 

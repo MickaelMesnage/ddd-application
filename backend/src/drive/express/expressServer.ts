@@ -5,6 +5,7 @@ import todoRouter from "./todo/todo.router";
 import bodyParser from "body-parser";
 import todoListRouter from "./todo/todoList.router";
 import CDrive, { CDriveDependencies } from "../CDrive";
+import authRouter from "./user/auth.router";
 import userRouter from "./user/user.router";
 
 class ExpressServer extends CDrive {
@@ -34,6 +35,7 @@ class ExpressServer extends CDrive {
         app.use(bodyParser.json());
         app.use("/todoList", todoListRouter(this._dependencies.todoUseCase));
         app.use("/todo", todoRouter(this._dependencies.todoUseCase));
+        app.use("/auth", authRouter(this._dependencies.userUseCase));
         app.use("/user", userRouter(this._dependencies.userUseCase));
         this._app = app;
     }

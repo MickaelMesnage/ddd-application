@@ -1,0 +1,8 @@
+.header-container {
+    padding: 1rem;
+    border-bottom: solid;
+}
+
+.header-nav :not(:first-child) {
+    margin-left: 1rem;
+}

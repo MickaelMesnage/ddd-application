@@ -6,9 +6,11 @@ import { TodoId, TodoIsChecked, TodoSubject } from "../../../../domain/todo/type
 import ITodoRepository, {
     CreateOrUpdateTodoPort,
     DeleteTodoPort,
-    GetTodoByIdPort
+    GetTodoByIdPort,
+    GetTodoByUserPort
 } from "../../../../application/todo/secondary/ITodo.repository";
 import { TodoByIdNotFoundError } from "../../../../error/TodoByIdNotFoundError";
+import { UserId } from "../../../../domain/user/type";
 
 const PATH = path.join(__dirname, "./store.txt");
 
@@ -16,9 +18,16 @@ type Item = {
     subject: TodoSubject;
     isChecked: TodoIsChecked;
     id: TodoId;
+    userId: UserId;
 };
 
 class TodoFileSystemRespository implements ITodoRepository {
+    private _items: Array<Item>;
+
+    constructor() {
+        this._items = this.getPersistedItems();
+    }
+
     private getPersistedItems(): Array<Item> {
         const content = fs.readFileSync(PATH).toString();
 
@@ -35,16 +44,17 @@ class TodoFileSystemRespository implements ITodoRepository {
     }
 
     // TODO handle user
-    public getTodosByUser(): Promise<TodoList> {
-        const items = this.getPersistedItems();
-        const todoList = new TodoList(items);
+    public getTodosByUser(port: GetTodoByUserPort): Promise<Array<Todo>> {
+        const { userId } = port;
+        const items = this._items.filter((item) => item.userId === userId);
+        const todos = items.map((item) => new Todo(item));
 
-        return Promise.resolve(todoList);
+        return Promise.resolve(todos);
     }
 
     public getTodoById(port: GetTodoByIdPort): Promise<Todo> {
         const { id } = port;
-        const item = this.getPersistedItems().find((item) => item.id === id);
+        const item = this._items.find((item) => item.id === id);
         if (!item) throw new TodoByIdNotFoundError();
         const todo = new Todo(item);
 
@@ -52,14 +62,15 @@ class TodoFileSystemRespository implements ITodoRepository {
     }
 
     public updateTodo(port: CreateOrUpdateTodoPort): Promise<void> {
-        const { id, subject, isChecked } = port;
-        const items = this.getPersistedItems();
+        const { id, subject, isChecked, userId } = port;
+        const items = this._items;
         const itemId = items.findIndex((item) => item.id === id);
         if (itemId < 0) throw new TodoByIdNotFoundError();
         items[itemId] = {
             ...items[itemId],
             subject,
-            isChecked
+            isChecked,
+            userId
         };
         this.persistItems(items);
 
@@ -67,7 +78,7 @@ class TodoFileSystemRespository implements ITodoRepository {
     }
 
     public createTodo(port: CreateOrUpdateTodoPort): Promise<void> {
-        const items = this.getPersistedItems();
+        const items = this._items;
         items.push(port);
         this.persistItems(items);
 
@@ -76,7 +87,7 @@ class TodoFileSystemRespository implements ITodoRepository {
 
     public deleteTodo(port: DeleteTodoPort): Promise<void> {
         const { id } = port;
-        const items = this.getPersistedItems();
+        const items = this._items;
         const itemId = items.findIndex((item) => item.id === id);
         if (itemId < 0) throw new TodoByIdNotFoundError();
         items.splice(itemId, 1);

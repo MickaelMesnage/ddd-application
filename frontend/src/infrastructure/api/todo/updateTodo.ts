@@ -7,16 +7,16 @@ type UpdateTodoProps = {
 };
 
 type UpdateTodoOutput = {
-    todoList: TodoList;
+    todos: TodoList;
 };
 
 const updateTodo = async (todo: Todo): Promise<TodoList> => {
-    const { todoList } = await PUT<UpdateTodoProps, UpdateTodoOutput>(
+    const { todos } = await PUT<UpdateTodoProps, UpdateTodoOutput>(
         `${process.env.REACT_APP_API_URL}todo`,
         { todo }
     );
 
-    return todoList;
+    return todos;
 };
 
 export default updateTodo;

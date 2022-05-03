@@ -6,6 +6,7 @@ export type GetUserByEmailPort = {
 };
 
 interface IUserRepository {
+    getUsers(): Promise<Array<User>>;
     getUserByEmail(port: GetUserByEmailPort): Promise<User>;
 }
 

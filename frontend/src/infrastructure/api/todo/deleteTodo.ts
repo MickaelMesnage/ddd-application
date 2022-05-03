@@ -6,16 +6,16 @@ type DeleteTodoProps = {
 };
 
 type DeleteTodoOutput = {
-    todoList: TodoList;
+    todos: TodoList;
 };
 
 const deleteTodo = async (id: string): Promise<TodoList> => {
-    const { todoList } = await DELETE<DeleteTodoProps, DeleteTodoOutput>(
+    const { todos } = await DELETE<DeleteTodoProps, DeleteTodoOutput>(
         `${process.env.REACT_APP_API_URL}todo`,
         { id }
     );
 
-    return todoList;
+    return todos;
 };
 
 export default deleteTodo;

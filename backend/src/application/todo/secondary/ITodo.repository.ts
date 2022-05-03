@@ -1,6 +1,10 @@
 import { TodoId, TodoIsChecked, TodoSubject } from "../../../domain/todo/type";
 import Todo from "../../../domain/todo/class/todo";
-import TodoList from "../../../domain/todo/class/todoList";
+import { UserId } from "../../../domain/user/type";
+
+export type GetTodoByUserPort = {
+    userId: UserId;
+};
 
 export type GetTodoByIdPort = {
     id: TodoId;
@@ -10,6 +14,7 @@ export type CreateOrUpdateTodoPort = {
     id: TodoId;
     subject: TodoSubject;
     isChecked: TodoIsChecked;
+    userId: UserId;
 };
 
 export type DeleteTodoPort = {
@@ -17,7 +22,7 @@ export type DeleteTodoPort = {
 };
 
 interface ITodoRepository {
-    getTodosByUser(): Promise<TodoList>;
+    getTodosByUser(port: GetTodoByUserPort): Promise<Array<Todo>>;
     getTodoById(port: GetTodoByIdPort): Promise<Todo>;
     createTodo(port: CreateOrUpdateTodoPort): Promise<void>;
     updateTodo(port: CreateOrUpdateTodoPort): Promise<void>;

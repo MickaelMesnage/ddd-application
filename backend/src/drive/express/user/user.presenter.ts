@@ -1,16 +1,18 @@
 import User from "../../../domain/user/class/user";
-import { UserEmail, UserProfile } from "../../../domain/user/type";
+import { UserEmail, UserId, UserProfile } from "../../../domain/user/type";
 
 export type UserPresented = {
     email: UserEmail;
-    profile: UserProfile;
+    isAdmin: boolean;
+    id: UserId;
 };
 
 class UserPresenter {
     static present(user: User): UserPresented {
         return {
             email: user.email,
-            profile: user.profile
+            isAdmin: user.profile === UserProfile.ADMIN,
+            id: user.id
         };
     }
 }

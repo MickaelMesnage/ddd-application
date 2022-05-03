@@ -1,10 +1,10 @@
 import { FC } from "react";
 import "./index.css";
-import Header from "../header";
+import ConnectedHeader from "../connectedHeader";
 
 const ConnectedLayout: FC = ({ children }) => (
     <div className="connected-layout-container">
-        <Header />
+        <ConnectedHeader />
         <div className="connected-layout-children">{children}</div>
     </div>
 );

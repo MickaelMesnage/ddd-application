@@ -3,40 +3,44 @@ import { DeleteTodoUseCasePort } from "../../../application/todo/useCase/deleteT
 import { ITodoUseCase } from "../../../application/todo/useCase/Todo.usecase";
 import { UpdateTodoUseCasePort } from "../../../application/todo/useCase/updateTodo";
 import { TodoId, TodoSubject } from "../../../domain/todo/type";
-import TodoListPresenter from "./todoList.presenter";
+import { authMiddleware } from "../middleware";
+import RequestWithSession from "../requestWithSession";
+import TodosPresenter from "./todos.presenter";
 
 const todoRouter = (todoUseCase: ITodoUseCase): Router => {
     const router = Router();
 
-    router.post("/", async (req: Request, res: Response) => {
-        // check if it is the todo of the user
-        // or if it is admin
+    router.post("/", authMiddleware, async (req: RequestWithSession, res: Response) => {
         const subject = req.body.subject as TodoSubject;
-        await todoUseCase.createTodo.execute({ subject });
-        const todoList = await todoUseCase.getTodos.execute();
+        const userId = req.session.user.id;
+        const todos = await todoUseCase.createTodo.execute({ subject, userId });
 
-        res.json({ todoList: TodoListPresenter.present(todoList) });
+        res.json({ todos: TodosPresenter.present(todos) });
     });
 
-    router.put("/", async (req: Request, res: Response) => {
-        // check if it is the todo of the user
-        // or if it is admin
-        const updateTodoUseCasePort = req.body.todo as UpdateTodoUseCasePort;
-        await todoUseCase.updateTodo.execute(updateTodoUseCasePort);
-        const todoList = await todoUseCase.getTodos.execute();
+    router.put("/", async (req: RequestWithSession, res: Response) => {
+        const updateTodoUseCasePort = {
+            ...req.body.todo,
+            userId: req.session.user.id
+        } as UpdateTodoUseCasePort;
+        const todos = await todoUseCase.updateTodo.execute(updateTodoUseCasePort);
 
-        res.json({ todoList: TodoListPresenter.present(todoList) });
+        res.json({ todos: TodosPresenter.present(todos) });
     });
 
-    router.delete("/", async (req: Request, res: Response) => {
-        // check if it is the todo of the user
-        // or if it is admin
-        // in use case i think
+    router.delete("/", async (req: RequestWithSession, res: Response) => {
         const id = req.body.id as TodoId;
-        await todoUseCase.deleteTodo.execute({ id });
-        const todoList = await todoUseCase.getTodos.execute();
+        const userId = req.session.user.id;
+        const todos = await todoUseCase.deleteTodo.execute({ id, userId });
 
-        res.json({ todoList: TodoListPresenter.present(todoList) });
+        res.json({ todos: TodosPresenter.present(todos) });
+    });
+
+    router.get("/list", authMiddleware, async (req: RequestWithSession, res: Response) => {
+        const userId = req.session.user.id;
+        const todos = await todoUseCase.getTodos.execute(userId);
+
+        res.json({ todos: TodosPresenter.present(todos) });
     });
 
     return router;

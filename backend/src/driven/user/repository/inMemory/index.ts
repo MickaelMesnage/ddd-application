@@ -33,6 +33,10 @@ class InMemoryUserRepository implements IUserRepository {
 
         return Promise.resolve(user);
     }
+
+    public getUsers(): Promise<Array<User>> {
+        return Promise.resolve(this._users);
+    }
 }
 
 export default InMemoryUserRepository;
