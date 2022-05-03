@@ -3,7 +3,6 @@ import { getMyTodoListAction } from "adapter/myTodoList/myTodoListAction";
 import { getMyTodoListSelector } from "adapter/myTodoList/myTodoListSelector";
 import { useAppDispatch, useAppSelector } from "adapter/redux/hooks";
 import Todo from "../todo";
-import "./index.css";
 
 const TodoList: FC = () => {
     const todoList = useAppSelector(getMyTodoListSelector);
@@ -14,7 +13,7 @@ const TodoList: FC = () => {
     }, []);
 
     return (
-        <div className="todo-list-container">
+        <div className="column">
             {todoList.map((todo) => (
                 <Todo {...todo} key={todo.id} />
             ))}

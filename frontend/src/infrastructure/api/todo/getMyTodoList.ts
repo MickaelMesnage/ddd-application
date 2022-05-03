@@ -5,15 +5,15 @@ import { GET } from "../fetch";
 type GetMyTodoListInput = void;
 
 type GetMyTodoListOutput = {
-    todoList: TodoList;
+    todos: TodoList;
 };
 
 const getMyTodoList = async (): Promise<Array<Todo>> => {
-    const { todoList } = await GET<GetMyTodoListInput, GetMyTodoListOutput>(
-        `${process.env.REACT_APP_API_URL}todoList`
+    const { todos } = await GET<GetMyTodoListInput, GetMyTodoListOutput>(
+        `${process.env.REACT_APP_API_URL}todo/list`
     );
 
-    return todoList;
+    return todos;
 };
 
 export default getMyTodoList;

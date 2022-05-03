@@ -1,10 +1,13 @@
 import { Request } from "express";
-import { UserEmail, UserProfile } from "../../domain/user/type";
+import { UserEmail, UserId } from "../../domain/user/type";
 
 type RequestWithSession = Request & {
-    session?: {
-        email: UserEmail;
-        profile: UserProfile;
+    session: {
+        user?: {
+            id: UserId;
+            email: UserEmail;
+            isAdmin: boolean;
+        };
     };
 };
 

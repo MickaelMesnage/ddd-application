@@ -6,7 +6,9 @@ import "./index.css";
 const TodoCard: FC = () => (
     <div className="todo-container">
         <TodoList />
-        <TodoInput />
+        <div className="todo-input">
+            <TodoInput />
+        </div>
     </div>
 );
 

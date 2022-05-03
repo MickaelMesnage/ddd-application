@@ -1,3 +1,5 @@
+import { UserId } from "../../user/type";
+
 export type TodoId = string;
 
 export enum TodoStatus {
@@ -13,4 +15,5 @@ export type TodoProps = {
     subject: TodoSubject;
     isChecked?: TodoIsChecked;
     id?: TodoId;
+    userId: UserId;
 };

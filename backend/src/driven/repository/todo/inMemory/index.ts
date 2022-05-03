@@ -1,5 +1,4 @@
 import Todo from "../../../../domain/todo/class/todo";
-import TodoList from "../../../../domain/todo/class/todoList";
 import { TodoByIdNotFoundError } from "../../../../error/TodoByIdNotFoundError";
 import ITodoRepository, {
     CreateOrUpdateTodoPort,
@@ -8,19 +7,19 @@ import ITodoRepository, {
 } from "../../../../application/todo/secondary/ITodo.repository";
 
 class InMemoryTodoRepository implements ITodoRepository {
-    private _items: TodoList;
+    private _items: Array<Todo>;
 
     constructor() {
-        this._items = new TodoList([]);
+        this._items = [];
     }
 
-    public getTodosByUser(): Promise<TodoList> {
+    public getTodosByUser(): Promise<Array<Todo>> {
         return Promise.resolve(this._items);
     }
 
     public getTodoById(port: GetTodoByIdPort): Promise<Todo> {
         const { id } = port;
-        const todo = this._items.list.find((item: Todo) => item.id === id);
+        const todo = this._items.find((item: Todo) => item.id === id);
         if (!todo) throw new TodoByIdNotFoundError();
 
         return Promise.resolve(todo);
@@ -28,24 +27,24 @@ class InMemoryTodoRepository implements ITodoRepository {
 
     public updateTodo(port: CreateOrUpdateTodoPort): Promise<void> {
         const { id } = port;
-        const itemId = this._items.list.findIndex((item: Todo) => item.id === id);
+        const itemId = this._items.findIndex((item: Todo) => item.id === id);
         if (itemId < 0) throw new TodoByIdNotFoundError();
-        this._items.list[itemId] = new Todo(port);
+        this._items[itemId] = new Todo(port);
 
         return Promise.resolve();
     }
 
     public createTodo(port: CreateOrUpdateTodoPort): Promise<void> {
-        this._items.list.push(new Todo(port));
+        this._items.push(new Todo(port));
 
         return Promise.resolve();
     }
 
     public deleteTodo(port: DeleteTodoPort): Promise<void> {
         const { id } = port;
-        const itemId = this._items.list.findIndex((item: Todo) => item.id === id);
+        const itemId = this._items.findIndex((item: Todo) => item.id === id);
         if (itemId < 0) throw new TodoByIdNotFoundError();
-        this._items.list.splice(itemId, 1);
+        this._items.splice(itemId, 1);
 
         return Promise.resolve();
     }

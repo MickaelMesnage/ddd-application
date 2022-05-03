@@ -6,16 +6,16 @@ type AddTodoProps = {
 };
 
 type AddTodoOutput = {
-    todoList: TodoList;
+    todos: TodoList;
 };
 
 const addTodo = async (subject: string): Promise<TodoList> => {
-    const { todoList } = await POST<AddTodoProps, AddTodoOutput>(
+    const { todos } = await POST<AddTodoProps, AddTodoOutput>(
         `${process.env.REACT_APP_API_URL}todo`,
         { subject }
     );
 
-    return todoList;
+    return todos;
 };
 
 export default addTodo;

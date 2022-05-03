@@ -1,13 +1,15 @@
 export type UserEmail = string;
 
-export enum UserProfile {
-    ADMIN = "ADMIN",
-    USER = "USER"
-}
+export type UserLogin = string;
+
+export type UserIsAdmin = boolean;
+
+export type UserId = string;
 
 type User = {
+    id: UserId;
     email: UserEmail;
-    profile: UserProfile;
+    isAdmin: UserIsAdmin;
 };
 
 export default User;
