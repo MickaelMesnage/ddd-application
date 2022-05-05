@@ -31,20 +31,3 @@ Tries to fix lint errors. This command will format the code according to prettie
 
 `npm run format`
 Formats the code according to prettier
-
-
-## Architecture
-
-The architecture is based on following layers:
-- domain layer: business logic
-- application layer: useCases
-- infrastructure layer: external call
-- adaptater layer: adaptation between UI layer and application layer
-- UI layer: interface seen by the user
-
-
-## Tools
-
-### Eslint and prettier
-
-We use eslint and prettier for detect errors and check the style of the code (indentation, double quote ...)
