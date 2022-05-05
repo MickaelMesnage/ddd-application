@@ -1,11 +1,12 @@
 import React, { FC } from "react";
-import LoginButton from "UI/user/loginButton";
+import LoginForm from "UI/user/loginForm";
+import Layout from "UI/layout";
 
 const LoginPage: FC = () => (
-    <>
+    <Layout>
         <h1>Page de connexion</h1>
-        <LoginButton />
-    </>
+        <LoginForm />
+    </Layout>
 );
 
 export default LoginPage;

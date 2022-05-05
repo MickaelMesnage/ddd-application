@@ -2,30 +2,31 @@ import { FC, useCallback, useState } from "react";
 import { useAppDispatch } from "adapter/redux/hooks";
 import { loginAction } from "adapter/connectedUser/connectedUserAction";
 
-const LoginButton: FC = () => {
+const LoginForm: FC = () => {
     const dispatch = useAppDispatch();
     const [email, setEmail] = useState<string>("admin@gmail.com");
 
-    const onInputChange = useCallback(
+    const onEmailChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {
             setEmail(event.target.value);
         },
         [setEmail]
     );
 
-    const onLogin = async () => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         await loginAction(dispatch, email);
     };
 
     return (
-        <>
+        <form onSubmit={handleSubmit}>
             <label>
-                Email
-                <input type="text" value={email} onChange={onInputChange} />
+                Login :
+                <input type="text" value={email} onChange={onEmailChange} />
             </label>
-            <button onClick={onLogin}>Se connecter</button>
-        </>
+            <input type="submit" value="Se connecter" />
+        </form>
     );
 };
 
-export default LoginButton;
+export default LoginForm;

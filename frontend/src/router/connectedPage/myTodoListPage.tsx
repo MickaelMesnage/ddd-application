@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import TodoCard from "UI/todo/todoCard";
-import ConnectedLayout from "UI/connectedLayout";
+import Layout from "UI/layout";
 
 const MyTodoListPage: FC = () => (
-    <ConnectedLayout>
+    <Layout>
         <h1>Ma todo list</h1>
         <TodoCard />
-    </ConnectedLayout>
+    </Layout>
 );
 
 export default MyTodoListPage;

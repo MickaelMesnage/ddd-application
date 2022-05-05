@@ -2,7 +2,7 @@ import { FC } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import MyTodoListPage from "./connectedPage/myTodoListPage";
 import UsersPage from "./connectedPage/usersPage";
-import HomePage from "./connectedPage/homePage";
+import HomePage from "./notConnectedPage/homePage";
 
 // Todo handle isAdmin to add route for admin
 

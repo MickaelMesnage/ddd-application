@@ -1,4 +1,5 @@
 import IUserRepository, {
+    CreateUserPort,
     GetUserByEmailPort
 } from "../../../../application/user/secondary/IUser.repository";
 import User from "../../../../domain/user/class/user";
@@ -9,10 +10,6 @@ const DEFAULT_USERS = [
     {
         email: "admin@gmail.com",
         profile: UserProfile.ADMIN
-    },
-    {
-        email: "collab1@gmail.com",
-        profile: UserProfile.USER
     }
 ];
 
@@ -36,6 +33,11 @@ class InMemoryUserRepository implements IUserRepository {
 
     public getUsers(): Promise<Array<User>> {
         return Promise.resolve(this._users);
+    }
+
+    public createUser(port: CreateUserPort): Promise<void> {
+        this._users.push(new User(port));
+        return Promise.resolve();
     }
 }
 

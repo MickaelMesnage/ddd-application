@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import ConnectedLayout from "UI/connectedLayout";
+import Layout from "../../UI/layout";
 
 const HomePage: FC = () => (
-    <ConnectedLayout>
+    <Layout>
         <h1>Accueil</h1>
-    </ConnectedLayout>
+    </Layout>
 );
 
 export default HomePage;
