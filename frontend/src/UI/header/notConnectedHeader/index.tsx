@@ -8,6 +8,7 @@ const NotConnectedHeader: FC = () => (
     <div className="header-container">
         <nav className="header-nav">
             <Link to="/">Accueil</Link>
+            <Link to="/clean-archi">Clean archi</Link>
             <Link to="/login">Se connecter</Link>
         </nav>
     </div>

@@ -2,14 +2,18 @@
 
 Project of todo list with ddd method.
 
-Different type of user:
-- admin
-    => can see, add, edit and remove his own todo list
-    => can see, add, edit and remove users
-    => can see todo of other user
-- simple
-    => can see, add, edit and remove his own todo list
+To install the project :
+>cd backend;
+>npm install;
+>cd ../frontend;
+>npm install
 
-Connexion with a unique login by user.
+To start the backend :
+>cd backend;
+>npm run serve;
 
-By default, just one user : admin@gmail.com 
+To start the frontend :
+>cd frontend;
+>npm run start
+
+More explanations on homepage of the app.

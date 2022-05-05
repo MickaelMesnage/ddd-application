@@ -13,23 +13,3 @@ Tries to fix lint errors. This command will format the code according to prettie
 
 `npm run format`
 Formats the code according to prettier
-
-
-## Architecture
-
-Clean archi ddd
-
-
-## Tools
-
-### dotenv
-
-Handle environment variable in .env
-
-### cors
-
-Handle header to avoid cross origin errors
-
-### Eslint and prettier
-
-We use eslint and prettier for detect errors and check the style of the code (indentation, double quote ...)
