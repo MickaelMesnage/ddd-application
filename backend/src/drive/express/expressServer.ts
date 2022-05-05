@@ -13,10 +13,6 @@ class ExpressServer extends CDrive {
 
     constructor(props: CDriveDependencies) {
         super(props);
-        this.initApp();
-    }
-
-    private initApp() {
         const app = express();
         app.use(
             session({
@@ -37,13 +33,10 @@ class ExpressServer extends CDrive {
         app.use("/todo", todoRouter(this._dependencies.todoUseCase));
         app.use("/auth", authRouter(this._dependencies.userUseCase));
         app.use("/user", userRouter(this._dependencies.userUseCase));
-        this._app = app;
-    }
 
-    public start() {
         const port = process.env.PORT;
 
-        this._app.listen(port, () => {
+        app.listen(port, () => {
             console.log(`Server is running on port ${port}.`);
         });
     }

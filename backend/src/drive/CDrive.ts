@@ -12,8 +12,6 @@ abstract class CDrive {
     constructor(props: CDriveDependencies) {
         this._dependencies = props;
     }
-
-    public abstract start(): void;
 }
 
 export default CDrive;
