@@ -14,8 +14,8 @@ export default class GetUsersUseCase implements IGetUsersUseCase {
 
     async execute(): Promise<Array<User>> {
         const { userRepository } = this.dependencies;
-        const user = await userRepository.getUsers();
+        const users = await userRepository.getUsers();
 
-        return user;
+        return users;
     }
 }

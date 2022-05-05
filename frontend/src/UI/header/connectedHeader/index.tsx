@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import LogoutButtton from "../user/logoutButton";
-import "./index.css";
+import LogoutButtton from "../../user/logoutButton";
+import "../index.css";
 
 // Todo handle link if admin
 

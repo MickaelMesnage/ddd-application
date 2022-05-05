@@ -30,7 +30,6 @@ const authRouter = (userUseCase: IUserUseCase): Router => {
 
     router.post("/me", async (req: RequestWithSession, res: Response) => {
         const email = req.session.user?.email;
-        console.log({ email });
         if (email) {
             try {
                 const user = await userUseCase.getUserByEmail.execute({ email });
@@ -46,7 +45,6 @@ const authRouter = (userUseCase: IUserUseCase): Router => {
 
     // Use any type for req to use session destroy
     router.post("/logout", async (req: any, res: Response) => {
-        console.log("logout");
         req.session.destroy();
 
         res.json({});

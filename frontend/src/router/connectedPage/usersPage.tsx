@@ -1,14 +1,14 @@
 import React, { FC } from "react";
-import ConnectedLayout from "UI/connectedLayout";
 import AddUserForm from "UI/user/addUserForm";
 import Users from "UI/user/users";
+import Layout from "UI/layout";
 
 const UsersPage: FC = () => (
-    <ConnectedLayout>
+    <Layout>
         <h1>Gestion des utilisateurs</h1>
         <Users />
         <AddUserForm />
-    </ConnectedLayout>
+    </Layout>
 );
 
 export default UsersPage;
