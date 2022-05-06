@@ -20,7 +20,7 @@ type Item = {
     userId: UserId;
 };
 
-class TodoFileSystemRespository implements ITodoRepository {
+class FileSystemTodoRespository implements ITodoRepository {
     private _items: Array<Item>;
 
     constructor() {
@@ -96,4 +96,4 @@ class TodoFileSystemRespository implements ITodoRepository {
     }
 }
 
-export default TodoFileSystemRespository;
+export default FileSystemTodoRespository;
