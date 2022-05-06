@@ -8,7 +8,7 @@ import CDrive, { CDriveDependencies } from "../CDrive";
 import authRouter from "./user/auth.router";
 import userRouter from "./user/user.router";
 
-class ExpressServer extends CDrive {
+class ExpressAdapter extends CDrive {
     private _app: Express;
 
     constructor(props: CDriveDependencies) {
@@ -42,4 +42,4 @@ class ExpressServer extends CDrive {
     }
 }
 
-export default ExpressServer;
+export default ExpressAdapter;
