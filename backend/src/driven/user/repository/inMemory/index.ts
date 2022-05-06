@@ -21,6 +21,8 @@ class InMemoryUserRepository implements IUserRepository {
             (user: { email: UserEmail; profile: UserProfile }) =>
                 new User({ email: user.email, profile: user.profile })
         );
+
+        console.log(this._users);
     }
 
     public getUserByEmail(port: GetUserByEmailPort): Promise<User> {

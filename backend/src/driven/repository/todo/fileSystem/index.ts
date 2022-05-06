@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
 import Todo from "../../../../domain/todo/class/todo";
-import TodoList from "../../../../domain/todo/class/todoList";
 import { TodoId, TodoIsChecked, TodoSubject } from "../../../../domain/todo/type";
 import ITodoRepository, {
     CreateOrUpdateTodoPort,
