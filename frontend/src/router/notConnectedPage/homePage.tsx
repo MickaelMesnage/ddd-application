@@ -74,9 +74,9 @@ const HomePage: FC = () => (
                 permettra de créer ou consulter une todolist (travail en cours).
             </p>
             <p>
-                De la même manière coté driven, vous pouvez choisir que les todos ou les users sont
-                sauvegardés sur le file system, dans une base de données ou même directement en
-                mémoire du serveur (non persité du coup)
+                De la même manière coté driven, vous pouvez choisir que les todos et les users sont
+                sauvegardés sur le file system, dans une base de données (travail non commencé) ou
+                même directement en mémoire du serveur (non persisté lorsque l'on arrète le serveur)
             </p>
         </p>
     </Layout>
