@@ -14,7 +14,11 @@ const AddUserForm: FC = () => {
         await addUserAction(dispatch, { email, isAdmin });
     };
 
-    return <UserForm onUserSubmit={onUserSubmit} />;
+    return (
+        <div className="card">
+            <UserForm onUserSubmit={onUserSubmit} />
+        </div>
+    );
 };
 
 export default AddUserForm;

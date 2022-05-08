@@ -1,5 +1,6 @@
 import { FC, useCallback, useState } from "react";
 import { UserEmail, UserIsAdmin } from "domain/user";
+import Email from "domain/core/email";
 
 type UserFormType = {
     onUserSubmit: (props: { email: UserEmail; isAdmin: UserIsAdmin }) => Promise<void>;
@@ -14,12 +15,20 @@ const UserForm: FC<UserFormType> = ({
 }) => {
     const [email, setEmail] = useState<string>(defaultEmail);
     const [isAdmin, setIsAdmin] = useState<boolean>(defaultIsAdmin);
+    const [alreadySubmit, setAlreadySubmit] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
 
     const onEmailChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {
-            setEmail(event.target.value);
+            const value = event.target.value;
+            setEmail(value);
+            if (Email.isValid(value)) {
+                setError(false);
+            } else {
+                setError(true);
+            }
         },
-        [setEmail]
+        [setEmail, setError]
     );
 
     const onIsAdminChange = useCallback(
@@ -30,20 +39,24 @@ const UserForm: FC<UserFormType> = ({
     );
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        setAlreadySubmit(true);
         event.preventDefault();
-        await onUserSubmit({ email, isAdmin });
+        if (!error) {
+            await onUserSubmit({ email, isAdmin });
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="column form" onSubmit={handleSubmit}>
             <label>
-                Login :
+                Login
                 <input type="text" value={email} onChange={onEmailChange} />
             </label>
             <label>
                 <input type="checkbox" checked={isAdmin} onChange={onIsAdminChange} />
                 Admin
             </label>
+            {alreadySubmit && error && <div>Erreur</div>}
             <input type="submit" value="Créer" />
         </form>
     );

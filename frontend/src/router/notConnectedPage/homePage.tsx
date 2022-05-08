@@ -76,7 +76,8 @@ const HomePage: FC = () => (
             <p>
                 De la même manière coté driven, vous pouvez choisir que les todos et les users sont
                 sauvegardés sur le file system, dans une base de données (travail non commencé) ou
-                même directement en mémoire du serveur (non persisté lorsque l'on arrète le serveur)
+                même directement en mémoire du serveur (non persisté lorsque l&apos;on arrète le
+                serveur)
             </p>
         </p>
     </Layout>

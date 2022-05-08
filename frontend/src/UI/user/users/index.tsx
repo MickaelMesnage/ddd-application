@@ -13,11 +13,13 @@ const Users: FC = () => {
     }, []);
 
     return (
-        <div className="column">
+        <ul className="column">
             {users.map((user) => (
-                <User {...user} key={user.id} />
+                <li key={user.id}>
+                    <User {...user} />
+                </li>
             ))}
-        </div>
+        </ul>
     );
 };
 

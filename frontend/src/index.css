@@ -20,3 +20,15 @@ code {
     flex-direction: row;
     justify-content: space-between;
 }
+
+.card {
+    max-width: 20rem;
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    padding: 1rem;
+}
+
+.form :not(:first-child) {
+    margin-top: 1rem;
+}
