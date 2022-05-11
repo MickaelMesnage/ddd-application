@@ -5,6 +5,7 @@ import { loginAction } from "adapter/connectedUser/connectedUserAction";
 const LoginForm: FC = () => {
     const dispatch = useAppDispatch();
     const [email, setEmail] = useState<string>("");
+    const [error, setError] = useState<boolean>(false);
 
     const onEmailChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -15,17 +16,28 @@ const LoginForm: FC = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        await loginAction(dispatch, email);
+        try {
+            await loginAction(dispatch, email);
+            setError(false);
+        } catch (error) {
+            setError(true);
+        }
     };
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="column form card">
                 <label>
                     Login :
-                    <input type="text" value={email} onChange={onEmailChange} />
+                    <input
+                        data-test-id="login-form-email"
+                        type="text"
+                        value={email}
+                        onChange={onEmailChange}
+                    />
                 </label>
-                <input type="submit" value="Se connecter" />
+                {error && <div data-test-id="login-form-error"></div>}
+                <input data-test-id="login-form-submit" type="submit" value="Se connecter" />
             </form>
             <p>
                 L&apos;utilisateur admin par défaut est admin@gmail.com. Libre à vous de créer

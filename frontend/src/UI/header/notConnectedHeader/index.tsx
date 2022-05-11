@@ -7,9 +7,15 @@ import "../index.css";
 const NotConnectedHeader: FC = () => (
     <div className="header-container">
         <nav className="header-nav">
-            <Link to="/">Accueil</Link>
-            <Link to="/clean-archi">Clean archi</Link>
-            <Link to="/login">Se connecter</Link>
+            <Link data-test-id="header-link-not-connected-home" to="/">
+                Accueil
+            </Link>
+            <Link data-test-id="header-link-clean-code" to="/clean-archi">
+                Clean archi
+            </Link>
+            <Link data-test-id="header-link-login" to="/login">
+                Se connecter
+            </Link>
         </nav>
     </div>
 );

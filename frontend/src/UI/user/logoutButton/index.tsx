@@ -9,7 +9,11 @@ const LogoutButtton: FC = () => {
         await logoutAction(dispatch);
     };
 
-    return <button onClick={onLogout}>Se déconnecter</button>;
+    return (
+        <button data-test-id="logout-button" onClick={onLogout}>
+            Se déconnecter
+        </button>
+    );
 };
 
 export default LogoutButtton;
